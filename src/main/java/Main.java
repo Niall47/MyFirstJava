@@ -10,4 +10,3 @@ public class Main {
         fire_them_up.generateMultipleVehicles();
     }
 }
-fkqS6Y0ljt%h
