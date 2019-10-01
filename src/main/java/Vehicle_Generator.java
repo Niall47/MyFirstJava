@@ -1,15 +1,13 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import sun.jvm.hotspot.utilities.ObjectReader;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 class Vehicle_Generator {
     private void Vehicle_Spec_Generator(JSONArray vehicle_list, int number_of_vehicles){
-        System.out.println("Generating " + (number_of_vehicles + 1) + " vehicles");
-        for (int count = 0; count <= number_of_vehicles; count++) {
+        System.out.println("Generating " + (number_of_vehicles) + " vehicles");
+
+        for (int count = 1; count <= number_of_vehicles; count++) {
             //Make JSON readable and generate a list of possible manufactures
             JSONObject makes = (JSONObject) vehicle_list.get(0);
             ArrayList<String> make = new ArrayList<>();
@@ -41,9 +39,14 @@ class Vehicle_Generator {
 
             //Pick a VRM associated with our manufacture date
             VRM_Generator newVRM = new VRM_Generator();
-            newVRM.Base_generator(chosen_manufacture_date);
             String chosen_vrm = newVRM.Base_generator(chosen_manufacture_date);
-            Vehicle vehicle = new Vehicle(chosen_vrm, chosen_manufacture, chosen_model, chosen_colour, chosen_manufacture_date);
+
+            //This is a lazy fix. bite me
+            if(Main.vehicle_registry.get(chosen_vrm) != null ){
+                count = count -1;
+            }
+
+            Vehicle vehicle = new Vehicle(chosen_manufacture, chosen_model, chosen_colour, chosen_manufacture_date);
             Main.vehicle_registry.put(chosen_vrm, vehicle);
         }
     }
@@ -59,10 +62,13 @@ class Vehicle_Generator {
         Scanner user_input = new Scanner(System.in);
         int how_many_vehicles = user_input.nextInt();
 
-        Vehicle_Spec_Generator(vehicle_list, how_many_vehicles -1);
-        System.out.println("We have generated " + Main.vehicle_registry.size() + " records");
+        Vehicle_Spec_Generator(vehicle_list, how_many_vehicles);
+
+        //report back after generating records
+        System.out.println("We now have " + Main.vehicle_registry.size() + " records");
         System.out.println("Caught " + new VRM_Generator().getDuplicateVRM() + " duplicates");
         System.out.println("Caught " + new VRM_Generator().getInvalidCharacters() + " invalid registrations ");
+
     }
 
     private double getRandomInt(double min, double max){

@@ -1,5 +1,4 @@
 public class Vehicle {
-    private String vrm;
     private String make;
     private String model;
     private String colour;
@@ -7,16 +6,9 @@ public class Vehicle {
 
     @Override
     public String toString(){
-        return "VRM: " + vrm + " - Make: " + make + ", Model: " + model + ", Colour: " + colour + ", Built: " + manufactureDate;
+        return "Make: " + make + ", Model: " + model + ", Colour: " + colour + ", Built: " + manufactureDate;
     }
 
-    public String getVrm() {
-        return vrm;
-    }
-
-    public void setVrm() {
-        this.make = vrm;
-    }
     public String getMake() {
         return make;
     }
@@ -49,8 +41,7 @@ public class Vehicle {
         this.manufactureDate = manufactureDate;
     }
 
-    Vehicle(String vrm, String make, String model, String colour, int manufactureDate){
-        this.vrm = vrm;
+    Vehicle(String make, String model, String colour, int manufactureDate){
         this.make = make;
         this.model = model;
         this.colour = colour;

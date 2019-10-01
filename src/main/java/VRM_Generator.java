@@ -1,7 +1,5 @@
 import org.apache.commons.lang3.RandomStringUtils;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Random;
 
 class VRM_Generator {
     private static int invalidCharacters = 0;
@@ -29,11 +27,13 @@ class VRM_Generator {
             registration_plate = datelessVRM(manufacture_date);
         }
 
-        if(Main.vehicle_registry.containsKey(registration_plate)){
-            duplicateVRM++;
-            Base_generator(manufacture_date);
-        }else if(registration_plate.contains("I") || (registration_plate.contains("Q"))){
+        if(registration_plate.contains("I") || (registration_plate.contains("Q"))) {
             invalidCharacters++;
+            Base_generator(manufacture_date);
+        }
+
+        if(Main.vehicle_registry.get(registration_plate) != null ){
+            duplicateVRM++;
             Base_generator(manufacture_date);
         }
         return registration_plate;
@@ -50,6 +50,7 @@ class VRM_Generator {
             return (generateDigits(3) + generateLetters(3));
         }
     }
+
     private static String suffixVRM(int manufacture_date) {
         HashMap<Integer, String> dates = new HashMap<>();
         dates.put(1963, "A");
@@ -74,6 +75,7 @@ class VRM_Generator {
         dates.put(1982, "Y");
         return ( generateLetters(3) + generateDigits(3) + dates.get(manufacture_date));
     }
+
     private static String prefixVRM(int manufacture_date) {
         HashMap<Integer, String> dates = new HashMap<>();
         dates.put(1983, "A");
@@ -97,6 +99,7 @@ class VRM_Generator {
         dates.put(2001, "W");
         return ( dates.get(manufacture_date) + generateDigits(3) + generateLetters(3));
     }
+
     private static String currentVRM(int manufacture_date) {
         String year = String.valueOf((manufacture_date));
        return generateLetters(2) + year.substring(2,4) + generateLetters(3);
