@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-class Vehicle_Generator {
+class VehicleGenerator {
     private void vehicleSpecGenerator(JSONArray vehicleList, int numberOfVehicles) {
         System.out.println("Generating vehicles");
 

@@ -8,7 +8,7 @@ public class Main {
         asciiIntro intro = new asciiIntro();
 
         //Start generating vehicles
-        Vehicle_Generator fire_them_up = new Vehicle_Generator();
+        VehicleGenerator fire_them_up = new VehicleGenerator();
         fire_them_up.generateMultipleVehicles();
 
         //Scan & replace offensive registrations
