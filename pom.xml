@@ -44,7 +44,7 @@
                     <finalName>vrmdemo</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>classes.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

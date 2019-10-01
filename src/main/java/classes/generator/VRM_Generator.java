@@ -1,7 +1,9 @@
+package classes.generator;
+import classes.Main;
 import org.apache.commons.lang3.RandomStringUtils;
 import java.util.HashMap;
 
-class VRM_Generator {
+public class VRM_Generator {
     private static int invalidCharacters = 0;
     private static int duplicateVRM = 0;
 
@@ -13,7 +15,7 @@ class VRM_Generator {
         return duplicateVRM;
     }
 
-    String Base_generator(int manufacture_date) {
+    public String Base_generator(int manufacture_date) {
         String registration_plate = "";
         if (manufacture_date >= 1903 && manufacture_date <= 1962) {
             registration_plate = historicVRM(manufacture_date);

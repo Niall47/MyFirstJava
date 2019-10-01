@@ -1,8 +1,14 @@
+package classes;
+
+import classes.fileHandler.asciiIntro;
+import classes.generator.Vehicle_Generator;
+import classes.illegalCombo.blocked_vrm_search;
+import classes.structure.Vehicle;
+
 import java.util.HashMap;
 
 public class Main {
-    static HashMap<String, Vehicle> vehicle_registry =  new HashMap<>();
-
+    public static HashMap<String, Vehicle> vehicle_registry =  new HashMap<>();
     public static void main(String[] args) {
         //Load our title
         asciiIntro intro = new asciiIntro();

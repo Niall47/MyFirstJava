@@ -1,12 +1,14 @@
+package classes.fileHandler;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class asciiIntro {
-    public Scanner input;
+public class asciiIntro {
+    private Scanner input;
     {
         try {
-            input = new Scanner(new File("ascii.txt"));
+            input = new Scanner(new File("src/main/resources/ascii.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

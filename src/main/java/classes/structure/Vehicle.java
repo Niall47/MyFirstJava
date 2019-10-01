@@ -1,3 +1,5 @@
+package classes.structure;
+
 public class Vehicle {
     private String make;
     private String model;
@@ -41,7 +43,7 @@ public class Vehicle {
         this.manufactureDate = manufactureDate;
     }
 
-    Vehicle(String make, String model, String colour, int manufactureDate){
+    public Vehicle(String make, String model, String colour, int manufactureDate){
         this.make = make;
         this.model = model;
         this.colour = colour;

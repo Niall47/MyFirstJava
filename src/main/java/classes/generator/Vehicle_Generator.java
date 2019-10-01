@@ -1,9 +1,14 @@
+package classes.generator;
+
+import classes.Main;
+import classes.fileHandler.JsonRead;
+import classes.structure.Vehicle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Vehicle_Generator {
+public class Vehicle_Generator {
     private void Vehicle_Spec_Generator(JSONArray vehicle_list, int number_of_vehicles){
         System.out.println("Generating " + (number_of_vehicles) + " vehicles");
 
@@ -50,12 +55,12 @@ class Vehicle_Generator {
             Main.vehicle_registry.put(chosen_vrm, vehicle);
         }
     }
-    void generateMultipleVehicles() {
+    public void generateMultipleVehicles() {
 
         //Load list of makes and models
         JSONArray vehicle_list = new JSONArray();
         JsonRead jsonRead = new JsonRead();
-        vehicle_list = jsonRead.JsonReader("vehicles.json");
+        vehicle_list = jsonRead.JsonReader("src/main/resources/vehicles.json");
 
         //find out how many vehicles user wants to register
         System.out.println("How many vehicles are you trying to register? ");
