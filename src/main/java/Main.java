@@ -8,7 +8,7 @@ public class Main {
         asciiIntro intro = new asciiIntro();
 
         //Start generating vehicles
-        Vehicle_Generator fire_them_up = new Vehicle_Generator();
+        VehicleGenerator fire_them_up = new VehicleGenerator();
         fire_them_up.generateMultipleVehicles();
 
         //Scan & replace offensive registrations
@@ -19,6 +19,7 @@ public class Main {
         System.out.println("Trying again");
         blocked_vrm_search search2 = new blocked_vrm_search();
 
-
+        vehicle_registry.entrySet()
+                .forEach(System.out::println);
     }
 }
