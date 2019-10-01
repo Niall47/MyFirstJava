@@ -19,6 +19,7 @@ public class Main {
         System.out.println("Trying again");
         blocked_vrm_search search2 = new blocked_vrm_search();
 
-
+        vehicle_registry.entrySet()
+                .forEach(System.out::println);
     }
 }
