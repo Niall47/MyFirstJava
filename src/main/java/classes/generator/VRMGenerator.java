@@ -3,7 +3,7 @@ import classes.Main;
 import org.apache.commons.lang3.RandomStringUtils;
 import java.util.HashMap;
 
-public class VRM_Generator {
+public class VRMGenerator {
     private static int invalidCharacters = 0;
     private static int duplicateVRM = 0;
 

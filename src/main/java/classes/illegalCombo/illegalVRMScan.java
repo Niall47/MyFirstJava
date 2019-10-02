@@ -1,7 +1,7 @@
 package classes.illegalCombo;
 
 import classes.Main;
-import classes.generator.VRM_Generator;
+import classes.generator.VRMGenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class blocked_vrm_search {
-    public blocked_vrm_search() {
+public class illegalVRMScan {
+    public illegalVRMScan() {
         List<String> lines;
         ArrayList NaughtyList = new ArrayList();
         try {
@@ -47,7 +47,7 @@ public class blocked_vrm_search {
         //iterate through our naughty list and generate new vrm for each
         NaughtyList.forEach((vrm) -> {
             try {
-                VRM_Generator newVRM = new VRM_Generator();
+                VRMGenerator newVRM = new VRMGenerator();
                 String chosen_vrm = newVRM.Base_generator(Main.vehicle_registry.get(vrm).getManufactureDate());
                 Main.vehicle_registry.put(chosen_vrm, Main.vehicle_registry.get(vrm));
                 Main.vehicle_registry.remove(vrm);

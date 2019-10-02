@@ -8,8 +8,8 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Vehicle_Generator {
-    private void Vehicle_Spec_Generator(JSONArray vehicle_list, int number_of_vehicles){
+public class VehicleGenerator {
+    private void VehicleSpecGenerator(JSONArray vehicle_list, int number_of_vehicles){
         System.out.println("Generating " + (number_of_vehicles) + " vehicles");
 
         for (int count = 1; count <= number_of_vehicles; count++) {
@@ -17,8 +17,9 @@ public class Vehicle_Generator {
             JSONObject makes = (JSONObject) vehicle_list.get(0);
             ArrayList<String> make = new ArrayList<>();
             Object[] manufacturers = makes.keySet().toArray();
-            for(int i = 0; i < manufacturers.length; i++){
-                make.add(manufacturers[i].toString()); }
+            for (Object manufacturer : manufacturers) {
+                make.add(manufacturer.toString());
+            }
 
             //Pick a manufacture
             double random_number = getRandomInt(0, manufacturers.length-1);
@@ -43,7 +44,7 @@ public class Vehicle_Generator {
             String chosen_colour = colours[colour_picker];
 
             //Pick a VRM associated with our manufacture date
-            VRM_Generator newVRM = new VRM_Generator();
+            VRMGenerator newVRM = new VRMGenerator();
             String chosen_vrm = newVRM.Base_generator(chosen_manufacture_date);
 
             //This is a lazy fix. bite me
@@ -67,12 +68,12 @@ public class Vehicle_Generator {
         Scanner user_input = new Scanner(System.in);
         int how_many_vehicles = user_input.nextInt();
 
-        Vehicle_Spec_Generator(vehicle_list, how_many_vehicles);
+        VehicleSpecGenerator(vehicle_list, how_many_vehicles);
 
         //report back after generating records
         System.out.println("We now have " + Main.vehicle_registry.size() + " records");
-        System.out.println("Caught " + new VRM_Generator().getDuplicateVRM() + " duplicates");
-        System.out.println("Caught " + new VRM_Generator().getInvalidCharacters() + " invalid registrations ");
+        System.out.println("Caught " + new VRMGenerator().getDuplicateVRM() + " duplicates");
+        System.out.println("Caught " + new VRMGenerator().getInvalidCharacters() + " invalid registrations ");
 
     }
 
