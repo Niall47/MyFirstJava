@@ -42,7 +42,7 @@ public class illegalVRMScan {
             ReplaceBadVRM(NaughtyList);
         }
     }
-    private static void ReplaceBadVRM(ArrayList NaughtyList){
+    public static void ReplaceBadVRM(ArrayList NaughtyList){
         System.out.println("Replacing " + NaughtyList.size() + " registration marks");
         //iterate through our naughty list and generate new vrm for each
         NaughtyList.forEach((vrm) -> {

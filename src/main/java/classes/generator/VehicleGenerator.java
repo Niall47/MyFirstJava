@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class VehicleGenerator {
-    private void VehicleSpecGenerator(JSONArray vehicle_list, int number_of_vehicles){
+    public void VehicleSpecGenerator(JSONArray vehicle_list, int number_of_vehicles){
         System.out.println("Generating " + (number_of_vehicles) + " vehicles");
 
         for (int count = 1; count <= number_of_vehicles; count++) {
@@ -64,10 +64,10 @@ public class VehicleGenerator {
         vehicle_list = jsonRead.JsonReader("src/main/resources/vehicles.json");
 
         //find out how many vehicles user wants to register
-        System.out.println("How many vehicles are you trying to register? ");
-        Scanner user_input = new Scanner(System.in);
-        int how_many_vehicles = user_input.nextInt();
-
+        //System.out.println("How many vehicles are you trying to register? ");
+        //Scanner user_input = new Scanner(System.in);
+        //int how_many_vehicles = user_input.nextInt();
+        int how_many_vehicles = 10000;
         VehicleSpecGenerator(vehicle_list, how_many_vehicles);
 
         //report back after generating records
