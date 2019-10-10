@@ -2,11 +2,10 @@ package classes.generator;
 
 import classes.Main;
 import classes.fileHandler.JsonRead;
-import classes.structure.Vehicle;
+import classes.model.Vehicle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class VehicleGenerator {
     public void VehicleSpecGenerator(JSONArray vehicle_list, int number_of_vehicles){

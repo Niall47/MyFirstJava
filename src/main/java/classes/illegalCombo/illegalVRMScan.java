@@ -7,14 +7,22 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class illegalVRMScan {
+    List<String> lines;
+    ArrayList<String> ReplaceList = new ArrayList();
+
+    public HashMap<String, ArrayList> getNaughtyList() {
+        return NaughtyList;
+    }
+
+    HashMap<String, ArrayList> NaughtyList =  new HashMap<>();
     public illegalVRMScan() {
-        List<String> lines;
-        ArrayList NaughtyList = new ArrayList();
+
         try {
             lines = Files.readAllLines(new File("src/main/resources/illegal_vrm_list.txt").toPath());
         } catch (IOException e) {
@@ -31,7 +39,13 @@ public class illegalVRMScan {
                 //we print our results that violated the rules
                 if (m.find()) {
                     System.out.println("Found: " + key + " comparing: " + m.pattern());
-                    NaughtyList.add(key);
+                    ArrayList<String> matches = new ArrayList<>();
+                    if (NaughtyList.get(key) != null) {
+                        matches.add(NaughtyList.get(key).toString());
+                    }
+                    matches.add(key);
+                    NaughtyList.put(m.pattern().toString(), matches);
+                    ReplaceList.add(key);
                 }
             });
         }
@@ -39,7 +53,7 @@ public class illegalVRMScan {
         if (NaughtyList.isEmpty()){
             System.out.println("No illegal registrations found");
         }else {
-            ReplaceBadVRM(NaughtyList);
+            ReplaceBadVRM(ReplaceList);
         }
     }
     public static void ReplaceBadVRM(ArrayList NaughtyList){

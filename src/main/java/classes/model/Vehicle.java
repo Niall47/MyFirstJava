@@ -1,4 +1,4 @@
-package classes.structure;
+package classes.model;
 
 public class Vehicle {
     private String make;
