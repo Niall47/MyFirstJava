@@ -5,7 +5,7 @@ This program is designed to generate large numbers of vehicle records, assign th
 
 # Files
 
-The program has uses takes in three files during the build process:
+The program  takes in three files during the build process:
 
  1. vehicles.json - Contains a hash of vehicle manufactures and nested arrays containing each manufacture's respective models.
  2. ascii.txt - Contains the ascii formatted title run when the program starts up
