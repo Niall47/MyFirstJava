@@ -21,13 +21,13 @@ public class illegalVRMScan {
     }
 
     HashMap<String, ArrayList> NaughtyList =  new HashMap<>();
-    public illegalVRMScan() {
+    public String illegalVRMScan() {
 
         try {
             lines = Files.readAllLines(new File("src/main/resources/illegal_vrm_list.txt").toPath());
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+            return "Failed to load illegal VRM List";
         }
         //We iterate through our criteria list
         System.out.println("Comparing " + lines.size() + " illegal formats against " + Main.vehicle_registry.size() + " vehicle records");
@@ -51,27 +51,23 @@ public class illegalVRMScan {
         }
         //Send the list to get less offensive registration marks
         if (NaughtyList.isEmpty()){
-            System.out.println("No illegal registrations found");
+            return "No illegal registrations found";
         }else {
-            ReplaceBadVRM(ReplaceList);
+            ReplaceList.forEach((vrm) -> {
+                try {
+                    VRMGenerator newVRM = new VRMGenerator();
+                    String chosen_vrm = newVRM.Base_generator(Main.vehicle_registry.get(vrm).getManufactureDate());
+                    Main.vehicle_registry.put(chosen_vrm, Main.vehicle_registry.get(vrm));
+                    Main.vehicle_registry.remove(vrm);
+                    System.out.println("Replacing: " + vrm + " with: " + chosen_vrm );
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            });
+            int illegals = ReplaceList.size();
+            return "Removing " + illegals + " illegal registration marks";
         }
     }
-    private static void ReplaceBadVRM(ArrayList NaughtyList){
-        System.out.println("Replacing " + NaughtyList.size() + " registration marks");
-        //iterate through our naughty list and generate new vrm for each
-        NaughtyList.forEach((vrm) -> {
-            try {
-                VRMGenerator newVRM = new VRMGenerator();
-                String chosen_vrm = newVRM.Base_generator(Main.vehicle_registry.get(vrm).getManufactureDate());
-                Main.vehicle_registry.put(chosen_vrm, Main.vehicle_registry.get(vrm));
-                Main.vehicle_registry.remove(vrm);
-                System.out.println("Replacing: " + vrm + " with: " + chosen_vrm );
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        });
-    }
-
 
 }
 

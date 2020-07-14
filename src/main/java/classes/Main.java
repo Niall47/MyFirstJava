@@ -23,14 +23,8 @@ public class Main {
         new asciiIntro();
 
 
-        //Scan & replace offensive registrations
-        System.out.println("Scanning for illegal registration marks");
-        new illegalVRMScan();
-
-        //Print the total number of vehicles registered
-        System.out.println("We have " + vehicle_registry.size() + " records");
-        Scanner scanner = new Scanner(System.in);
         SpringApplication.run(Main.class, args);
+        Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         System.out.println("Closing");
     }
@@ -43,11 +37,17 @@ public class Main {
         }
         @GetMapping("/start")
         @ResponseBody
-        public String findAll(@RequestParam String add) {
+        public String createRecords(@RequestParam String add) {
             int count = Integer.parseInt(add);
             new VehicleGenerator().generateMultipleVehicles(count);
             System.out.println("We have " + vehicle_registry.size() + " records");
             return "You requested to create " + count + " records. We now have " + vehicle_registry.size();
+        }
+
+        @GetMapping("/scan")
+        public String scanRecords() {
+            illegalVRMScan response = new illegalVRMScan();
+            return response.illegalVRMScan();
         }
     }
 }

@@ -1,7 +1,15 @@
 # Vehicle Registration System
 
-This program is designed to generate large numbers of vehicle records, assign them unique registration numbers. Once the registration numbers have been generated and assigned it will scan them against a list of DVLA revoked number combinations and replace them if they are considered offensive. It can be run as many times as desired with different results each time.
+This program is intended to generate large numbers of vehicle records, assign them unique registration numbers.
+It uses SpringBoot to provide an API which allows for interaction with the program
+By default it runs on port 8080
 
+# URLs
+To make things easier, here are the URLs you will need
+
+http://localhost:8080/scan - Scans all registrations in the registry for illegal combinations
+
+http://localhost:8080/start?add=1000 - Creates dummy vehicle and assigns a unique registration number to it
 
 # Files
 
