@@ -8,8 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -21,8 +21,7 @@ public class Main {
     public static void main(String[] args) {
         //Load title
         new asciiIntro();
-        //Start generating vehicles
-        new VehicleGenerator().generateMultipleVehicles(10000);
+
 
         //Scan & replace offensive registrations
         System.out.println("Scanning for illegal registration marks");
@@ -37,16 +36,18 @@ public class Main {
     }
 
     @RestController
-    public class APIcontroller extends SpringBootServletInitializer{
+    public static class WebService extends SpringBootServletInitializer{
 
-        public APIcontroller() {
+        public WebService() {
 
         }
-
-        @RequestMapping(value = "/hello")
-        public String findAll() {
-            String helloWorld = "hello World";
-            return helloWorld;
+        @GetMapping("/start")
+        @ResponseBody
+        public String findAll(@RequestParam String add) {
+            int count = Integer.parseInt(add);
+            new VehicleGenerator().generateMultipleVehicles(count);
+            System.out.println("We have " + vehicle_registry.size() + " records");
+            return "You requested to create " + count + " records. We now have " + vehicle_registry.size();
         }
     }
 }
