@@ -11,43 +11,42 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Scanner;
+import java.util.Map;
 
 @SpringBootApplication
 @Configuration
 public class Main {
-    public static HashMap<String, Vehicle> vehicle_registry =  new HashMap<>();
+    public static HashMap<String, Vehicle> vehicleRegistry =  new HashMap<>();
 
     public static void main(String[] args) {
-        //Load title
-        new asciiIntro();
-
 
         SpringApplication.run(Main.class, args);
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        System.out.println("Closing");
     }
 
     @RestController
     public static class WebService extends SpringBootServletInitializer{
 
         public WebService() {
-
+            new asciiIntro();
         }
+
         @GetMapping("/start")
         @ResponseBody
         public String createRecords(@RequestParam String add) {
             int count = Integer.parseInt(add);
             new VehicleGenerator().generateMultipleVehicles(count);
-            System.out.println("We have " + vehicle_registry.size() + " records");
-            return "You requested to create " + count + " records. We now have " + vehicle_registry.size();
+            System.out.println("We have " + vehicleRegistry.size() + " records");
+            return "You requested to create " + count + " records. We now have " + vehicleRegistry.size();
         }
 
         @GetMapping("/scan")
         public String scanRecords() {
-            illegalVRMScan response = new illegalVRMScan();
-            return response.illegalVRMScan();
+            if (vehicleRegistry.isEmpty()){
+                return "We dont have any records to scan";
+            } else {
+                illegalVRMScan response = new illegalVRMScan();
+                return response.illegalVRMScan();
+            }
         }
     }
 }

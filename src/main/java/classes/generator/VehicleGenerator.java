@@ -47,12 +47,12 @@ public class VehicleGenerator {
             VRMGenerator newVRM = new VRMGenerator();
             String chosen_vrm = newVRM.Base_generator(chosen_manufacture_date);
 
-            if(Main.vehicle_registry.get(chosen_vrm) != null ){
+            if(Main.vehicleRegistry.get(chosen_vrm) != null ){
                 count = count -1;
             }
 
             Vehicle vehicle = new Vehicle(chosen_manufacture, chosen_model, chosen_colour, chosen_manufacture_date);
-            Main.vehicle_registry.put(chosen_vrm, vehicle);
+            Main.vehicleRegistry.put(chosen_vrm, vehicle);
         }
     }
     public void generateMultipleVehicles(int howManyVehicles) {
@@ -70,7 +70,7 @@ public class VehicleGenerator {
         //Report back
         System.out.println("Caught " + new VRMGenerator().getDuplicateVRM() + " duplicates");
         System.out.println("Caught " + new VRMGenerator().getInvalidCharacters() + " invalid registrations ");
-        System.out.println("We have " + Main.vehicle_registry.size() + " records");
+        System.out.println("We have " + Main.vehicleRegistry.size() + " records");
 
     }
 

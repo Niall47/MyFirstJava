@@ -34,7 +34,7 @@ public class VRMGenerator {
             Base_generator(manufacture_date);
         }
 
-        if(Main.vehicle_registry.get(registration_plate) != null ){
+        if(Main.vehicleRegistry.get(registration_plate) != null ){
             duplicateVRM++;
             Base_generator(manufacture_date);
         }
