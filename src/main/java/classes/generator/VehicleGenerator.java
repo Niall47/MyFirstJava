@@ -9,62 +9,49 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class VehicleGenerator {
-    private void VehicleSpecGenerator(JSONArray vehicle_list, int number_of_vehicles){
+    private void VehicleSpecGenerator(JSONArray vehicleList, int numberToGenerate){
 
-        for (int count = 1; count <= number_of_vehicles; count++) {
+        JSONObject makes = (JSONObject) vehicleList.get(0);
+        ArrayList<String> make = new ArrayList<>();
+        Object[] manufacturers = makes.keySet().toArray();
+        for (Object manufacturer : manufacturers) {
+            make.add(manufacturer.toString());
+        }
 
-            //Make JSON readable and generate a list of possible manufactures
-            JSONObject makes = (JSONObject) vehicle_list.get(0);
-            ArrayList<String> make = new ArrayList<>();
-            Object[] manufacturers = makes.keySet().toArray();
-            for (Object manufacturer : manufacturers) {
-                make.add(manufacturer.toString());
-            }
+        String[] colours = {"Red", "Blue", "Silver", "Grey", "Black", "Green", "Yellow"};
 
-            //Pick a manufacture
-            double random_number = getRandomInt(0, manufacturers.length-1);
-            int random_manufacture = (int) random_number;
-            String chosen_manufacture = make.get(random_manufacture);
+        for (int count = 1; count <= numberToGenerate; count++) {
 
-            //Pick a model associated with our manufacture
-            JSONObject vehicle_list1 = (JSONObject) vehicle_list.get(0);
-            ArrayList models = (ArrayList) vehicle_list1.get(chosen_manufacture);
-            double random_number2 = getRandomInt(0, models.size()-1);
-            int random_model = (int) random_number2;
-            String chosen_model = models.get(random_model).toString();
+            int manufacturerInt = getRandomInt(0, manufacturers.length-1);
+            String manufacturer = make.get(manufacturerInt);
 
-            //Pick a manufacture date
-            double random_number3 = getRandomInt(1950, 2020);
-            int chosen_manufacture_date = (int) random_number3;
+            ArrayList models = (ArrayList) vehicleList.get(manufacturerInt);
+            int modelInt = getRandomInt(0, models.size()-1);
+            String model = models.get(modelInt).toString();
 
-            //Pick a colour
-            String[] colours = {"Red", "Blue", "Silver", "Grey", "Black", "Green", "Yellow"};
-            double random_number4 = getRandomInt(0, colours.length-1);
-            int colour_picker = (int) random_number4;
-            String chosen_colour = colours[colour_picker];
+            String colour = colours[getRandomInt(0, colours.length-1)];
 
-            //Pick a VRM associated with our manufacture date
+            int manufactureDate = getRandomInt(1950, 2020);
+
             VRMGenerator newVRM = new VRMGenerator();
-            String chosen_vrm = newVRM.Base_generator(chosen_manufacture_date);
+            String chosen_vrm = newVRM.Base_generator(manufactureDate );
 
             if(Main.vehicleRegistry.get(chosen_vrm) != null ){
-                count = count -1;
+                count -= 1;
             }
 
-            Vehicle vehicle = new Vehicle(chosen_manufacture, chosen_model, chosen_colour, chosen_manufacture_date);
-            Main.vehicleRegistry.put(chosen_vrm, vehicle);
+            Main.vehicleRegistry.put(
+                    chosen_vrm,
+                    new Vehicle(manufacturer, model, colour, manufactureDate
+                    ));
         }
     }
+
     public void generateMultipleVehicles(int howManyVehicles) {
 
-        //Load list of makes and models
-        JSONArray vehicle_list = new JSONArray();
         JsonRead jsonRead = new JsonRead();
-        vehicle_list = jsonRead.JsonReader("src/main/resources/vehicles.json");
-
-        //Send our vehicle list off to the generator
-        String howManyVehiclesString = String.format("Generating %s new vehicles", howManyVehicles);
-        System.out.println(howManyVehiclesString);
+        JSONArray vehicle_list = jsonRead.JsonReader("src/main/resources/vehicles.json");
+        System.out.println(String.format("Generating %s new vehicles", howManyVehicles));
         VehicleSpecGenerator(vehicle_list, howManyVehicles);
 
         //Report back
@@ -74,8 +61,8 @@ public class VehicleGenerator {
 
     }
 
-    private double getRandomInt(double min, double max){
-        return (int)(Math.random()*((max-min)+1))+min;
+    private int getRandomInt(double min, double max){
+        return (int) ((Math.random()*((max-min)+1))+min);
     }
 
 }

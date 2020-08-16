@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @SpringBootApplication
 @Configuration
@@ -30,6 +29,9 @@ public class Main {
             new asciiIntro();
         }
 
+        /**
+         * Generate the number of vehicle records
+         */
         @GetMapping("/start")
         @ResponseBody
         public String createRecords(@RequestParam String add) {
@@ -39,6 +41,9 @@ public class Main {
             return "You requested to create " + count + " records. We now have " + vehicleRegistry.size();
         }
 
+        /**
+         * Scan through all records for offensive combinations and returns a string confirming number changed
+         */
         @GetMapping("/scan")
         public String scanRecords() {
             if (vehicleRegistry.isEmpty()){
