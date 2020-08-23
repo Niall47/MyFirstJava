@@ -4,26 +4,61 @@ import classes.model.Vehicle;
 import classes.fileHandler.asciiIntro;
 import classes.generator.VehicleGenerator;
 import classes.illegalCombo.illegalVRMScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
+@SpringBootApplication
+@Configuration
 public class Main {
-    public static HashMap<String, Vehicle> vehicle_registry =  new HashMap<>();
+    public static HashMap<String, Vehicle> vehicleRegistry =  new HashMap<>();
 
     public static void main(String[] args) {
 
-        //Load title
-        new asciiIntro();
+        SpringApplication.run(Main.class, args);
+    }
 
-        //Start generating vehicles
-        new VehicleGenerator().generateMultipleVehicles(10000);
+    @RestController
+    public static class WebService extends SpringBootServletInitializer{
 
-        //Scan & replace offensive registrations
-        System.out.println("Scanning for illegal registration marks");
-        new illegalVRMScan();
+        public WebService() {
+            new asciiIntro();
+        }
 
-        //Print the total number of vehicles registered
-        System.out.println("We have " + vehicle_registry.size() + " records");
+        /**
+         * Generate the number of vehicle records
+         */
+        @GetMapping("/start")
+        @ResponseBody
+        public String createRecords(@RequestParam String add) {
+            int count;
+                try {
+                    count = Integer.parseInt(add);
+                } catch (NumberFormatException e) {
+                    return "Please supply a number";
+                }
 
+                new VehicleGenerator().generateMultipleVehicles(count);
+                System.out.println("We have " + vehicleRegistry.size() + " records");
+                return "You requested to create " + count + " records. We now have " + vehicleRegistry.size();
+
+        }
+
+        /**
+         * Scan through all records for offensive combinations and returns a string confirming number changed
+         */
+        @GetMapping("/scan")
+        public String scanRecords() {
+            if (vehicleRegistry.isEmpty()){
+                return "We dont have any records to scan";
+            } else {
+                illegalVRMScan response = new illegalVRMScan();
+                return response.illegalVRMScan();
+            }
+        }
     }
 }
