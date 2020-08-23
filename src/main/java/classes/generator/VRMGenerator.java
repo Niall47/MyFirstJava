@@ -18,28 +18,28 @@ public class VRMGenerator {
     /**
      * Returns a registration number appropriate to the vehicles age
      */
-    public String Base_generator(int manufacture_date) {
+    public String generate(int manufactureDate) {
         String registration_plate = "";
-        if (manufacture_date >= 1903 && manufacture_date <= 1962) {
-            registration_plate = historicVRM(manufacture_date);
-        } else if (manufacture_date >= 1963 && manufacture_date <= 1982) {
-            registration_plate = suffixVRM(manufacture_date);
-        } else if (manufacture_date >= 1983 && manufacture_date <= 2000) {
-            registration_plate = prefixVRM(manufacture_date);
-        } else if (manufacture_date >= 2001) {
-            registration_plate = currentVRM(manufacture_date);
+        if (manufactureDate >= 1903 && manufactureDate <= 1962) {
+            registration_plate = historicVRM(manufactureDate);
+        } else if (manufactureDate >= 1963 && manufactureDate <= 1982) {
+            registration_plate = suffixVRM(manufactureDate);
+        } else if (manufactureDate >= 1983 && manufactureDate <= 2000) {
+            registration_plate = prefixVRM(manufactureDate);
+        } else if (manufactureDate >= 2001) {
+            registration_plate = currentVRM(manufactureDate);
         } else {
-            registration_plate = datelessVRM(manufacture_date);
+            registration_plate = datelessVRM(manufactureDate);
         }
 
-        if(registration_plate.contains("I") || (registration_plate.contains("Q"))) {
+        if (validVRM(registration_plate) == false){
             invalidCharacters++;
-            Base_generator(manufacture_date);
+            generate(manufactureDate);
         }
 
         if(Main.vehicleRegistry.get(registration_plate) != null ){
             duplicateVRM++;
-            Base_generator(manufacture_date);
+            generate(manufactureDate);
         }
         return registration_plate;
     }
@@ -116,6 +116,13 @@ public class VRMGenerator {
 
     private static String generateDigits(int amount){
         return RandomStringUtils.random(amount, "0123456789");
+    }
+
+    private boolean validVRM(String registration_plate){
+        if (registration_plate.contains("I") || (registration_plate.substring(1).contains("Q"))) {
+            return false;
+        }
+        return true;
     }
 
 }

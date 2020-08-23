@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-public class VehicleGenerator {
+public class VehicleGenerator extends VRMGenerator{
     private void VehicleSpecGenerator(JSONArray vehicleList, int numberToGenerate){
 
         JSONObject makes = (JSONObject) vehicleList.get(0);
@@ -33,15 +33,14 @@ public class VehicleGenerator {
 
             int manufactureDate = getRandomInt(1950, 2020);
 
-            VRMGenerator newVRM = new VRMGenerator();
-            String chosen_vrm = newVRM.Base_generator(manufactureDate );
+            String registrationNumber = generate(manufactureDate);
 
-            if(Main.vehicleRegistry.get(chosen_vrm) != null ){
+            if(Main.vehicleRegistry.get(registrationNumber) != null ){
                 count -= 1;
             }
 
             Main.vehicleRegistry.put(
-                    chosen_vrm,
+                    registrationNumber,
                     new Vehicle(manufacturer, model, colour, manufactureDate
                     ));
         }
@@ -50,9 +49,9 @@ public class VehicleGenerator {
     public void generateMultipleVehicles(int howManyVehicles) {
 
         JsonRead jsonRead = new JsonRead();
-        JSONArray vehicle_list = jsonRead.JsonReader("src/main/resources/vehicles.json");
-        System.out.println(String.format("Generating %s new vehicles", howManyVehicles));
-        VehicleSpecGenerator(vehicle_list, howManyVehicles);
+        JSONArray vehicleList = jsonRead.JsonReader("src/main/resources/vehicles.json");
+        System.out.printf("Generating %s new vehicles%n", howManyVehicles);
+        VehicleSpecGenerator(vehicleList, howManyVehicles);
 
         System.out.println("Caught " + new VRMGenerator().getDuplicateVRM() + " duplicates");
         System.out.println("Caught " + new VRMGenerator().getInvalidCharacters() + " invalid registrations ");

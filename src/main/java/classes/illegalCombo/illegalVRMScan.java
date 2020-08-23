@@ -48,7 +48,7 @@ public class illegalVRMScan {
     private void replaceVRM(String key) {
         try {
             VRMGenerator newVRM = new VRMGenerator();
-            String chosen_vrm = newVRM.Base_generator(Main.vehicleRegistry.get(key).getManufactureDate());
+            String chosen_vrm = newVRM.generate(Main.vehicleRegistry.get(key).getManufactureDate());
             Main.vehicleRegistry.put(chosen_vrm, Main.vehicleRegistry.get(key));
             System.out.println("Replacing: " + key + " with: " + chosen_vrm);
         } catch (Exception e) {
