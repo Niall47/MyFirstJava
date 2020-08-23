@@ -25,7 +25,7 @@ public class VehicleGenerator {
             int manufacturerInt = getRandomInt(0, manufacturers.length-1);
             String manufacturer = make.get(manufacturerInt);
 
-            ArrayList models = (ArrayList) vehicleList.get(manufacturerInt);
+            ArrayList models = (ArrayList) makes.get(make.get(manufacturerInt));
             int modelInt = getRandomInt(0, models.size()-1);
             String model = models.get(modelInt).toString();
 
@@ -54,7 +54,6 @@ public class VehicleGenerator {
         System.out.println(String.format("Generating %s new vehicles", howManyVehicles));
         VehicleSpecGenerator(vehicle_list, howManyVehicles);
 
-        //Report back
         System.out.println("Caught " + new VRMGenerator().getDuplicateVRM() + " duplicates");
         System.out.println("Caught " + new VRMGenerator().getInvalidCharacters() + " invalid registrations ");
         System.out.println("We have " + Main.vehicleRegistry.size() + " records");

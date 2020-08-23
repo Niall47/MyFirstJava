@@ -35,10 +35,17 @@ public class Main {
         @GetMapping("/start")
         @ResponseBody
         public String createRecords(@RequestParam String add) {
-            int count = Integer.parseInt(add);
-            new VehicleGenerator().generateMultipleVehicles(count);
-            System.out.println("We have " + vehicleRegistry.size() + " records");
-            return "You requested to create " + count + " records. We now have " + vehicleRegistry.size();
+            int count;
+                try {
+                    count = Integer.parseInt(add);
+                } catch (NumberFormatException e) {
+                    return "Please supply a number";
+                }
+
+                new VehicleGenerator().generateMultipleVehicles(count);
+                System.out.println("We have " + vehicleRegistry.size() + " records");
+                return "You requested to create " + count + " records. We now have " + vehicleRegistry.size();
+
         }
 
         /**
