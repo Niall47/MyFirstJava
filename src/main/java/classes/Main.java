@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.HashMap;
 
@@ -16,10 +19,23 @@ import java.util.HashMap;
 @Configuration
 public class Main {
     public static HashMap<String, Vehicle> vehicleRegistry =  new HashMap<>();
-
     public static void main(String[] args) {
 
+        System.out.println(System.getProperty("java.class.path"));
         SpringApplication.run(Main.class, args);
+    }
+    @Controller
+    public class IndexController {
+
+        /**
+         * Serve the index page with links to the options
+         */
+        @GetMapping("/")
+        public String index(Model model) {
+            model.addAttribute("message", vehicleRegistry.size());
+            return "index";
+
+        }
     }
 
     @RestController

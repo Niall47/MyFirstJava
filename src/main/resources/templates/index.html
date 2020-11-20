@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Thymeleaf Web Application</title>
+</head>
+<body>
+    <h1>Welcome to Vehicle Registry System</h1>
+
+    <p>Vehicles registered: <th:block th:text="${message}">message</th:block></p>
+    <div>
+        <p>The 'start' endpoint takes an number and generates the appropriate number of vehicle registrations complete with mocked vehicle information</p>
+
+        <form th:action="@{/start/(add=${add})}">
+            <input type="number" th:name="add"/>
+            <input type="submit" value="Generate"/>
+        </form>
+
+        <br>
+        <br>
+        <p>The 'scan' endpoint checks every registration in the file against a pre-defined list of offensive registrations.
+            Any registrations found to be unacceptable are sent to have a new number generated for the record.
+            A report is returned detailing the number of registrations that needed changing</p>
+
+            <form th:action="@{/scan}">
+                <input type='submit' value="Scan"/>
+            </form>
+
+
+    </div>
+
+</body>
+</html>

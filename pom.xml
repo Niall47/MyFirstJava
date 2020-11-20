@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.igorski</groupId>
-    <artifactId>basic-spring-boot-example</artifactId>
+    <groupId>uk.death-trap</groupId>
+    <artifactId>VehicleRegistry</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -21,6 +21,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <exec.mainClass>target/classes/classes.Main</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -133,7 +134,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!-- Spring REST Docs setup start -->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
@@ -179,7 +179,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Spring REST Docs setup end -->
         </plugins>
     </build>
 

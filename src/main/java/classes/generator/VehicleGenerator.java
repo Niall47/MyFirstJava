@@ -19,30 +19,33 @@ public class VehicleGenerator extends VRMGenerator{
         }
 
         String[] colours = {"Red", "Blue", "Silver", "Grey", "Black", "Green", "Yellow"};
+        try {
+            for (int count = 1; count <= numberToGenerate; count++) {
 
-        for (int count = 1; count <= numberToGenerate; count++) {
+                int manufacturerInt = getRandomInt(0, manufacturers.length - 1);
+                String manufacturer = make.get(manufacturerInt);
 
-            int manufacturerInt = getRandomInt(0, manufacturers.length-1);
-            String manufacturer = make.get(manufacturerInt);
+                ArrayList models = (ArrayList) makes.get(make.get(manufacturerInt));
+                int modelInt = getRandomInt(0, models.size() - 1);
+                String model = models.get(modelInt).toString();
 
-            ArrayList models = (ArrayList) makes.get(make.get(manufacturerInt));
-            int modelInt = getRandomInt(0, models.size()-1);
-            String model = models.get(modelInt).toString();
+                String colour = colours[getRandomInt(0, colours.length - 1)];
 
-            String colour = colours[getRandomInt(0, colours.length-1)];
+                int manufactureDate = getRandomInt(1950, 2020);
 
-            int manufactureDate = getRandomInt(1950, 2020);
+                String registrationNumber = generate(manufactureDate);
 
-            String registrationNumber = generate(manufactureDate);
+                if (Main.vehicleRegistry.get(registrationNumber) != null) {
+                    count -= 1;
+                }
 
-            if(Main.vehicleRegistry.get(registrationNumber) != null ){
-                count -= 1;
+                Main.vehicleRegistry.put(
+                        registrationNumber,
+                        new Vehicle(manufacturer, model, colour, manufactureDate
+                        ));
             }
-
-            Main.vehicleRegistry.put(
-                    registrationNumber,
-                    new Vehicle(manufacturer, model, colour, manufactureDate
-                    ));
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Error accessing vehicle record");
         }
     }
 
